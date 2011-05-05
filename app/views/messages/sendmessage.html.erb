@@ -1,0 +1,1 @@
+$("#usermessage").prepend("<%= User.find_by_id(@message.sender_id).email.to_s %>: <%= @message.message_text %> <br />");

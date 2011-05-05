@@ -1,0 +1,44 @@
+<a href="/privateMessages">Private Messages</a>
+<br>
+<a href="/users">Classroom</a>
+<br /><br />
+<div id="aj">
+<input id="messagetext" size="50" type="text" />
+
+<a id="sendlink" href="#" onClick="changehref();" data-remote="true">"Send Via Ajax!"</a>
+
+<script type="text/javascript">
+           
+           function changehref() {
+           var mess = document.getElementById("messagetext").value;
+           var urlpath = '/sendmessage/';
+           document.getElementById("sendlink").href = urlpath+mess;
+           }
+
+           window.setInterval(function() {
+          $("#aj").load(location.href+" #aj>*","");
+          }, 10000);
+
+          function refreshpage(){
+          $("#aj").load(location.href+" #aj>*","");
+          }
+</script>
+
+<%session['saved_location']='Messages'%>
+<h3>Global messages</h3><input type="button" id="refresher" value="refresh messages" onclick="refreshpage()">
+<br />
+<div id="usermessage"  style = "width:400px; height:400px;">
+
+<% @messages.each do |message| %>
+
+
+    <% id=message.sender_id %>
+    <% if id!=nil then %>
+    <% us=User.find_by_id(id)%>
+    <%= us.email.to_s%>:  <%= message.message_text %><br />
+
+<% end %>  
+<% end %>  
+
+
+</div></div>
